@@ -4,12 +4,16 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
+
+  static URL = '/user';
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
   static setCurrent(user) {
-
+    
+    localStorage.setItem(`user`, `${user}`);
+   
   }
 
   /**
@@ -17,6 +21,12 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
+
+    if(localStorage.length) {
+      return localStorage.removeItem(`user`);
+    } else{
+      return undefined;
+    };
 
   }
 
@@ -26,6 +36,11 @@ class User {
    * */
   static current() {
 
+    if(localStorage.length) {
+      return JSON.parse(localStorage.getItem(`user`));
+    } else{
+      return undefined;
+    }
   }
 
   /**
@@ -34,6 +49,29 @@ class User {
    * */
   static fetch( data, callback = f => f ) {
 
+    const xhr = createRequest({
+      method: 'GET',
+      url: '/current',
+      responseType: 'json',
+      data: data,
+      callback( err, response ) {
+        if ( response && response.user ) {
+          User.setCurrent( response.user );
+          response.json({
+            "success": true, 
+            "user": {
+              data
+           }
+          })
+        } else {
+          response.json({
+            "success": false,
+            "error": "Необходима авторизация"
+          })
+        }
+        callback(err, response)
+      },
+    });
   }
 
   /**
@@ -43,7 +81,29 @@ class User {
    * User.setCurrent.
    * */
   static login( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      data: data, 
+      method:'POST',
+      url: '/login',
+      responseType: 'json',
+      callback( err, response ) {
+        if ( response && response.user ) {
+          User.setCurrent( response.user );
+          response.json({
+            "success": true, 
+            "user": {
+              data
+           }
+          })
+        } else {
+          response.json({
+            "success": false,
+            "error": `Пользователь c email ${data.email} и паролем ${data.password} не найден`
+          })
+        }
+        callback(err, response)
+      },
+    });
   }
 
   /**
@@ -53,7 +113,36 @@ class User {
    * User.setCurrent.
    * */
   static register( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      data: data, 
+      method:'POST',
+      url: '/register',
+      responseType: 'json',
+      callback ( err, response ) {
+        if ( response && response.user ) {//тут пока не понятно что надо дальше
+          User.setCurrent( response.user );
+          response.json({
+            "success": true, 
+            "user": {
+              data
+           }
+          })
+        } else{
+          response.json({
+            "success": false,
+            "error": {
+                "email": [
+                    "Поле E-Mail адрес должно быть действительным электронным адресом."
+                ],
+                "password": [
+                    "Количество символов в поле Пароль должно быть не менее 3."
+                ]
+            }
+        })
+        }
+        callback(err, response);
+      },
+    });
   }
 
   /**
@@ -61,6 +150,24 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout( data, callback = f => f ) {
-
+    let xhr = createRequest({
+      data: data, 
+      method:'POST',
+      url: '/logout',
+      responseType: 'json',
+      callback( err, response ) {
+        if ( response && response.user ) {
+          User.unsetCurrent( response.user );
+          response.json({
+            "success": true
+          })
+        } else{
+          response.json({
+            "success": false
+          })
+        }
+        callback(err, response);
+      },
+    });
   }
 }

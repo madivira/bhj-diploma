@@ -13,7 +13,14 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-
+    try {
+      this.element = element;
+    } catch(e) {
+      if (!element) {//если элемент пуст
+        throw e;
+      }
+    };
+    
   }
 
   /**
@@ -23,6 +30,13 @@ class Modal {
    * */
   registerEvents() {
 
+    for (let modal of this.element) {
+      modal.onclick = () => {
+        if (modal.dataset.dismiss = 'modal'){
+          Modal.onClose(modal);
+        }
+      }
+    }
   }
 
   /**
@@ -30,12 +44,15 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose( e ) {
-
+    e.onclick = () => {
+      this.close;
+      return false;
+    }
   }
   /**
    * Удаляет обработчики событий
    * */
-  unregisterEvents() {
+  unregisterEvents() {//пока не понимаю, что именно требуется 
 
   }
   /**
@@ -43,12 +60,13 @@ class Modal {
    * со значением «block»
    * */
   open() {
-
+    console.log(this.element);
+    this.element.style.display = "block";
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-
+    this.element.style.display = 'none';
   }
 }
