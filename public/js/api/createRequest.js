@@ -5,47 +5,58 @@
  * на сервер.
  * */
 const createRequest = (options = {}) => {
-    try {
         
-        const urlStr = `${options.url}?mail=${options.data.mail}&password=${options.data.password}`;//преобразование для GET
-        
-        const xhr = new XMLHttpRequest();
-        const formData = new FormData();
-        if (options.method != 'GET') {//если отличный от GET
-            xhr.open(options.method, options.url);
-            formData.append('mail', options.data.mail);
-            formData.append('password', options.data.password);
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();    
+    let urlGET = options.url + "?";
 
-        } else {
-            xhr.open(options.method, urlStr);
-        };
-
-        if (options.headers) {//если есть заголовки
-            xhr.setRequestHeader(Object.keys(options.headers),options.headers[Object.keys(options.headers)]);
-        };
-
-        if(options.responseType) {//если есть тип
-            xhr.responseType = options.responseType;
-        };
-        
-        xhr.withCredentials = true;
-        xhr.onload = options.callback(null, xhr.response);
-        xhr.onerror = options.callback(xhr.status);
-        /*function () {
-            if (xhr.status === 200) {//если удачно
-                console.log('super');
-                options.callback;
-            } else {//неудачно
-                console.log('fail');
-                options.callback(xhr.status);
-            };
-        });*/
-        
-        if(options.method == 'GET') {
-            xhr.send()
-        } else {
-            xhr.send(formData);
-        } 
-    } catch (e) {
+    for ( let form in options.data) {
+        console.log(form + " " + options.data[form]) ;
+        formData.append(form, options.data[form]);
+        urlGET +=`${form}=${options.data[form]}&`;
+    }
+    
+    console.log(urlGET);
+    console.log(urlGET.slice(0, -1));
+    xhr.open(options.method, options.method == 'GET' ? urlGET.slice(0, -1) : options.url);
+   
+    if (options.headers) {//если есть заголовки
+        for ( let header in options.headers) {
+            console.log(header + options.headers[header]);
+            xhr.setRequestHeader(header,options.headers[header]);
+        }
     };
+
+    xhr.responseType = options.responseType;
+    xhr.withCredentials = true;
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(`response  = ${xhr.response}`);
+                options.callback(null, xhr.response);
+            } else {
+                console.log(`err = ${xhr.status}`);
+                options.callback(xhr.status, null);
+            }
+        };
+    };
+
+    options.method == 'GET' ? xhr.send() : xhr.send(formData);         
 };
+/* if (options.method != 'GET') {//если отличный от GET
+            xhr.open(options.method, options.url);
+            for ( let form in options.data) {
+                formData.append(`${options.data.form}`,form);
+            }
+
+        } else {
+            xhr.open(options.method, `${options.url}?mail=${options.data.email}&password=${options.data.password}`);
+        };*/
+/*
+        if(options.method != 'GET') {
+            xhr.send(formData);
+        } else {
+            xhr.send();
+        } 
+    */

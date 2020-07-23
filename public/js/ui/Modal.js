@@ -1,3 +1,5 @@
+//const e = require("express");
+
 /**
  * Класс Modal отвечает за
  * управление всплывающими окнами.
@@ -13,14 +15,16 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-    try {
+    try{
       this.element = element;
-    } catch(e) {
+      this.registerEvents();
       if (!element) {//если элемент пуст
-        throw e;
+        throw new Error('Error');
       }
-    };
-    
+    } catch(e){
+      console.log(e);
+    }
+  
   }
 
   /**
@@ -28,15 +32,16 @@ class Modal {
    * должен закрыть текущее окно
    * (с помощью метода Modal.onClose)
    * */
-  registerEvents() {
-
-    for (let modal of this.element) {
+  registerEvents() {//wtf
+   
+   /* for (let modal of this.element) {
       modal.onclick = () => {
-        if (modal.dataset.dismiss = 'modal'){
-          Modal.onClose(modal);
+        if (modal.dataset.dismiss == 'modal'){
+          this.onClose(this.element);
+          console.log('click');
         }
       }
-    }
+    }*/
   }
 
   /**
@@ -44,16 +49,14 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose( e ) {
-    e.onclick = () => {
-      this.close;
-      return false;
-    }
+    console.log(e);
+    e.addEventListener('click', this.close());
   }
   /**
    * Удаляет обработчики событий
    * */
-  unregisterEvents() {//пока не понимаю, что именно требуется 
-
+  unregisterEvents() { //пока вопрос
+    //.removeEventListener('click', this.close());
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
@@ -67,6 +70,6 @@ class Modal {
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-    this.element.style.display = 'none';
+    this.element.removeAttibute("style");
   }
 }

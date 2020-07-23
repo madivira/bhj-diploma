@@ -3,13 +3,14 @@
  * создания новой транзакции
  * Наследуется от AsyncForm
  * */
-class CreateTransactionForm {
+class CreateTransactionForm extends AsyncForm {
   /**
    * Вызывает родительский конструктор и
    * метод renderAccountsList
    * */
   constructor( element ) {
-
+    super(element);
+    this.renderAccountsList();
   }
 
   /**
@@ -17,7 +18,9 @@ class CreateTransactionForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
+    Account.list({name: this.element.name, id: this.element.id}, (err, response) => {
 
+    });
   }
 
   /**
@@ -27,6 +30,21 @@ class CreateTransactionForm {
    * в котором находится форма
    * */
   onSubmit( options ) {
-
+    Transaction.create(options, (err, response) => {
+      if(response) {
+        options = '';//сбрасывает форму??
+       // закрывает окно??
+       App.update();
+      }
+    })
   }
 }
+/*Account.create(User.current(), (err, response) => {
+      if (response) {
+        let form = new Modal(this.element);
+        form.close();
+        //закрывает окно (в котором находится форма)?
+        //сбрасывает форму??
+        App.update();
+      }
+    })*/

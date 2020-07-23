@@ -23,7 +23,7 @@ class RegisterForm extends AsyncForm {
     }
     
     User.register(data, (err, response) => {
-      if (response['success']) {
+      if (response[success]) {
         //При успешной регистрации сбрасывает форму
         for (let el of options) {
           el.value = '';

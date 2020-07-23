@@ -20,13 +20,8 @@ class Sidebar {
   static initToggleButton() {
     const body =  document.querySelector('body');
     document.querySelector('.sidebar-toggle').onclick = () => {
-       if (body.classList.contains('sidebar-open')) {
-        body.classList.remove('sidebar-open');
-        body.classList.remove('sidebar-collapse');
-       } else {
-        body.classList.add('sidebar-collapse');
-        body.classList.add('sidebar-open');
-       }
+      body.classList.toggle('sidebar-open');
+      body.classList.toggle('sidebar-collapse');
     }
   }
 
@@ -49,8 +44,8 @@ class Sidebar {
       return false;
     };
     document.querySelector('li.menu-item_logout a').onclick = () => {
-     User.logout(User.current, function(err, response){
-       if(response.success) {
+     User.logout(User.current(),(err, response) => {
+       if(response[success]) {
         App.setState( 'init' );
        }
      })

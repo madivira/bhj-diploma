@@ -12,7 +12,7 @@ class User {
    * */
   static setCurrent(user) {
     
-    localStorage.setItem(`user`, `${user}`);
+    localStorage.user = JSON.stringify(user);
    
   }
 
@@ -23,7 +23,7 @@ class User {
   static unsetCurrent() {
 
     if(localStorage.length) {
-      return localStorage.removeItem(`user`);
+      delete localStorage.user;
     } else{
       return undefined;
     };
@@ -37,7 +37,7 @@ class User {
   static current() {
 
     if(localStorage.length) {
-      return JSON.parse(localStorage.getItem(`user`));
+      return JSON.parse(localStorage.user);
     } else{
       return undefined;
     }
@@ -47,7 +47,7 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch( data, callback = f => f ) {
+  static fetch( data, callback = f => f) {
 
     const xhr = createRequest({
       method: 'GET',
@@ -55,21 +55,22 @@ class User {
       responseType: 'json',
       data: data,
       callback( err, response ) {
-        if ( response && response.user ) {
+        let responseCall = new Object();
+        if ( response && response.user ) {//если авторизован
           User.setCurrent( response.user );
-          response.json({
+          responseCall = {
             "success": true, 
             "user": {
               data
            }
-          })
-        } else {
-          response.json({
+          };
+        } else {//необходима авторизация
+          responseCall = {
             "success": false,
             "error": "Необходима авторизация"
-          })
+          };
         }
-        callback(err, response)
+        callback(err, responseCall);
       },
     });
   }
@@ -80,28 +81,29 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login( data, callback = f => f ) {
+  static login( data, callback = f => f) {
     let xhr = createRequest({
       data: data, 
       method:'POST',
       url: '/login',
       responseType: 'json',
       callback( err, response ) {
+        let responseCall = new Object();
         if ( response && response.user ) {
           User.setCurrent( response.user );
-          response.json({
+          responseCall = {
             "success": true, 
             "user": {
               data
            }
-          })
+          }
         } else {
-          response.json({
+          responseCall = {
             "success": false,
             "error": `Пользователь c email ${data.email} и паролем ${data.password} не найден`
-          })
+          }
         }
-        callback(err, response)
+        callback(err, responseCall);
       },
     });
   }
@@ -112,23 +114,24 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register( data, callback = f => f ) {
+  static register( data, callback = f => f) {
     let xhr = createRequest({
       data: data, 
       method:'POST',
       url: '/register',
       responseType: 'json',
       callback ( err, response ) {
+        let responseCall = new Object();
         if ( response && response.user ) {//тут пока не понятно что надо дальше
           User.setCurrent( response.user );
-          response.json({
+          responseCall = {
             "success": true, 
             "user": {
               data
            }
-          })
-        } else{
-          response.json({
+          }
+        } else {
+          responseCall = {
             "success": false,
             "error": {
                 "email": [
@@ -138,9 +141,9 @@ class User {
                     "Количество символов в поле Пароль должно быть не менее 3."
                 ]
             }
-        })
         }
-        callback(err, response);
+        }
+        callback(err, responseCall);
       },
     });
   }
@@ -149,24 +152,25 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout( data, callback = f => f ) {
+  static logout( data, callback = f => f) {
     let xhr = createRequest({
       data: data, 
       method:'POST',
       url: '/logout',
       responseType: 'json',
       callback( err, response ) {
+        let responseCall = new Object();
         if ( response && response.user ) {
           User.unsetCurrent( response.user );
-          response.json({
+          responseCall = {
             "success": true
-          })
-        } else{
-          response.json({
+          }
+        } else {
+          responseCall = {
             "success": false
-          })
-        }
-        callback(err, response);
+          }
+        } 
+        callback(err, responseCall);
       },
     });
   }

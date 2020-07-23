@@ -13,14 +13,16 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor( element ) {
-    try {
+    try{
       this.element = element;
-    } catch(e) {
+      this.registerEvents();
+    
       if (!element) {//если элемент пуст
-        throw e;
+        throw new Error('Error');
       }
-    };
-    this.registerEvents();
+    } catch(e){
+      console.log(e);
+    }
   }
 
   /**
