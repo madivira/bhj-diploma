@@ -11,6 +11,15 @@ class TransactionsPage {
    * через registerEvents()
    * */
   constructor( element ) {
+    try{
+      this.element = element;
+      this.registerEvents();
+      if (!element) {//если элемент пуст
+        throw new Error('Error');
+      }
+    } catch(e){
+      console.log(e);
+    }
 
   }
 
@@ -18,7 +27,7 @@ class TransactionsPage {
    * Вызывает метод render для отрисовки страницы
    * */
   update() {
-
+    this.render(this.element);
   }
 
   /**
@@ -28,7 +37,8 @@ class TransactionsPage {
    * TransactionsPage.removeAccount соответственно
    * */
   registerEvents() {
-
+    document.querySelector('button.remove-account').addEventListener('click', this.removeAccount());
+    document.querySelector('button.transaction__remove').addEventListener('click', this.removeTransaction());
   }
 
   /**
@@ -59,7 +69,17 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render( options ) {
-
+    if(options) {
+      lastOptions = options;//Для работы метода update следует сохранить options в свойство lastOptions.
+      Account.get(options[account_id], options, (err,response) => {
+        if (response) {
+          this.renderTitle()//name
+        }
+      });
+      Transaction.list(options, (err,response) => {
+        this.renderTransactions(options);
+      })
+    }
   }
 
   /**

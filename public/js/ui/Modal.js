@@ -1,5 +1,3 @@
-//const e = require("express");
-
 /**
  * Класс Modal отвечает за
  * управление всплывающими окнами.
@@ -32,16 +30,13 @@ class Modal {
    * должен закрыть текущее окно
    * (с помощью метода Modal.onClose)
    * */
-  registerEvents() {//wtf
-   
-   /* for (let modal of this.element) {
+  registerEvents() {
+    let dismiss = document.querySelectorAll('button[data-dismiss="modal"]');
+     for (let modal of dismiss) {
       modal.onclick = () => {
-        if (modal.dataset.dismiss == 'modal'){
-          this.onClose(this.element);
-          console.log('click');
-        }
+          this.onClose(modal);
       }
-    }*/
+    }
   }
 
   /**
@@ -49,7 +44,6 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose( e ) {
-    console.log(e);
     e.addEventListener('click', this.close());
   }
   /**
@@ -63,13 +57,12 @@ class Modal {
    * со значением «block»
    * */
   open() {
-    console.log(this.element);
     this.element.style.display = "block";
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-    this.element.removeAttibute("style");
+    this.element.style.display = "";
   }
 }
