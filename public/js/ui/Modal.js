@@ -22,7 +22,6 @@ class Modal {
     } catch(e){
       console.log(e);
     }
-  
   }
 
   /**

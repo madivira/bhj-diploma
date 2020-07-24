@@ -33,8 +33,10 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    const newAccount = new Modal(App.getModal('createAccount').this.element);
-    document.querySelector('.create-account').addEventListener('click', newAccount.open());
+    document.querySelector('span.create-account').onclick = () => {
+      const newAccount = new Modal(App.getModal('createAccount').element);
+      newAccount.open();
+    } 
 
     let sidebarAccount = document.querySelectorAll('ul.sidebar-menu account');
     sidebarAccount.forEach(element => {

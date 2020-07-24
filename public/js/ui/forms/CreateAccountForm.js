@@ -1,5 +1,3 @@
-//const { response } = require("express");
-
 /**
  * Класс CreateAccountForm управляет формой
  * создания нового счёта
@@ -13,11 +11,9 @@ class CreateAccountForm extends AsyncForm{
    * и сбрасывает форму
    * */
   onSubmit( options ) {
-    Account.create(User.current(), (err, response) => {
+    Account.create(options, (err,response) => {
       if (response) {
-        let form = new Modal(this.element);
-        form.close();
-        //закрывает окно (в котором находится форма)?
+        //закрывает окно (в котором находится форма) в случае успеха??
         //сбрасывает форму??
         App.update();
       }

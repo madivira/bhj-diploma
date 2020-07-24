@@ -30,10 +30,8 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update() {
-    User.current(this.element, function (err, response){
-      if(response.success) {
-        document.querySelector('.user-name').innerText = response.user.name;
+      if(User.current()) {
+        document.querySelector('.user-name').innerText = User.current().name;
       }
-    } )
-  }
+    } 
 }
