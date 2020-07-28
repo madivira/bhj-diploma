@@ -55,7 +55,7 @@ class AsyncForm {
     return object;
   }
 
-  onSubmit( options ) {
+  onSubmit( options ) {//пустой метод
 
   }
 

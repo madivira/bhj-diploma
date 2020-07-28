@@ -32,19 +32,10 @@ class CreateTransactionForm extends AsyncForm {
   onSubmit( options ) {
     Transaction.create(options, (err, response) => {
       if(response) {
-        options = '';//сбрасывает форму??
+        //сбрасывает форму??
        // закрывает окно??
        App.update();
       }
     })
   }
 }
-/*Account.create(User.current(), (err, response) => {
-      if (response) {
-        let form = new Modal(this.element);
-        form.close();
-        //закрывает окно (в котором находится форма)?
-        //сбрасывает форму??
-        App.update();
-      }
-    })*/

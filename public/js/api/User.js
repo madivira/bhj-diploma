@@ -122,7 +122,7 @@ class User {
       responseType: 'json',
       callback ( err, response ) {
         let responseCall = new Object();
-        if ( response && response.user ) {//тут пока не понятно что надо дальше
+        if ( response && response.user ) {
           User.setCurrent( response.user );
           responseCall = {
             "success": true, 

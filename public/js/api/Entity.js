@@ -15,7 +15,11 @@ class Entity {
       method:'GET',
       url: this.URL,
       responseType: 'json',
-      callback
+      callback(err, response){
+        if(response){
+          callback(err, {response});
+        }
+      }
     });
   }
 
@@ -31,7 +35,11 @@ class Entity {
       method:'POST',
       url: this.URL,
       responseType: 'json',
-      callback
+      callback(err, response){
+        if(response){
+          callback(err, {success: true});
+        }
+      }
     });
   }
 
@@ -46,7 +54,11 @@ class Entity {
       method:'GET',
       url: this.URL,
       responseType: 'json',
-      callback
+      callback(err, response){
+        if(response){
+          callback(err, {response, success: true});
+        }
+      }
     });
   }
 
@@ -62,7 +74,11 @@ class Entity {
       method:'POST',
       url: this.URL,
       responseType: 'json',
-      callback
+      callback(err, response){
+        if(response){
+          callback(err, {success: true});
+        }
+      }
     });
   }
 }
