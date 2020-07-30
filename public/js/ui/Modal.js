@@ -32,24 +32,23 @@ class Modal {
   registerEvents() {
     let dismiss = document.querySelectorAll('button[data-dismiss="modal"]');
      for (let modal of dismiss) {
-      modal.onclick = () => {
-          this.onClose(modal);
+      modal.onclick =()=> this.onClose();
       }
     }
-  }
+  
 
   /**
    * Срабатывает после нажатия на элементы, закрывающие окно.
    * Закрывает текущее окно (Modal.close())
    * */
-  onClose( e ) {
-    e.addEventListener('click', this.close());
+  onClose() {
+    this.close();
   }
   /**
    * Удаляет обработчики событий
    * */
-  unregisterEvents() { //пока вопрос
-    //.removeEventListener('click', this.close());
+  unregisterEvents() {
+    
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
@@ -62,6 +61,6 @@ class Modal {
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-    this.element.style.display = "";
+    this.element.style.display = "none";
   }
 }

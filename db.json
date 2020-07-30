@@ -1,11 +1,36 @@
 {
   "users": [
     {
-      "name": "demo",
-      "email": "demo@demo",
-      "password": "demo",
-      "id": "1",
-      "isAuthorized": false
+      "id": "1hvibhadskd8nljnu",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh8zckd8oz957",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh7t8kd8p2jqb",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh3p0kd8rh62z",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh6rckd8rryn1",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh84okd8rsnrk",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibhbzskd8s65w0",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh59wkd8scq8e",
+      "isAuthorized": true
     }
   ],
   "accounts": [

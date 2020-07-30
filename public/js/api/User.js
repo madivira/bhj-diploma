@@ -51,27 +51,15 @@ class User {
 
     const xhr = createRequest({
       method: 'GET',
-      url: '/current',
+      url: this.URL + '/current',
       responseType: 'json',
       data: data,
       callback( err, response ) {
-        let responseCall = new Object();
         if ( response && response.user ) {//если авторизован
-          User.setCurrent( response.user );
-          responseCall = {
-            "success": true, 
-            "user": {
-              data
-           }
-          };
-        } else {//необходима авторизация
-          responseCall = {
-            "success": false,
-            "error": "Необходима авторизация"
-          };
-        }
-        callback(err, responseCall);
-      },
+          this.setCurrent( response.user );
+        callback(err, response);
+      }
+      }
     });
   }
 
@@ -85,27 +73,15 @@ class User {
     let xhr = createRequest({
       data: data, 
       method:'POST',
-      url: '/login',
+      url: this.URL + '/login',
       responseType: 'json',
       callback( err, response ) {
-        let responseCall = new Object();
         if ( response && response.user ) {
-          User.setCurrent( response.user );
-          responseCall = {
-            "success": true, 
-            "user": {
-              data
-           }
-          }
-        } else {
-          responseCall = {
-            "success": false,
-            "error": `Пользователь c email ${data.email} и паролем ${data.password} не найден`
-          }
-        }
-        callback(err, responseCall);
-      },
-    });
+          this.setCurrent( response.user );
+        callback(err, response);
+      }
+      }
+    })
   }
 
   /**
@@ -118,34 +94,15 @@ class User {
     let xhr = createRequest({
       data: data, 
       method:'POST',
-      url: '/register',
+      url: this.URL + '/register',
       responseType: 'json',
       callback ( err, response ) {
-        let responseCall = new Object();
         if ( response && response.user ) {
-          User.setCurrent( response.user );
-          responseCall = {
-            "success": true, 
-            "user": {
-              data
-           }
-          }
-        } else {
-          responseCall = {
-            "success": false,
-            "error": {
-                "email": [
-                    "Поле E-Mail адрес должно быть действительным электронным адресом."
-                ],
-                "password": [
-                    "Количество символов в поле Пароль должно быть не менее 3."
-                ]
-            }
+          this.setCurrent( response.user );
+         callback(err, response);
         }
-        }
-        callback(err, responseCall);
-      },
-    });
+      }
+    })
   }
 
   /**
@@ -156,22 +113,14 @@ class User {
     let xhr = createRequest({
       data: data, 
       method:'POST',
-      url: '/logout',
+      url: this.URL + '/logout',
       responseType: 'json',
       callback( err, response ) {
-        let responseCall = new Object();
         if ( response && response.user ) {
-          User.unsetCurrent( response.user );
-          responseCall = {
-            "success": true
-          }
-        } else {
-          responseCall = {
-            "success": false
-          }
-        } 
-        callback(err, responseCall);
-      },
-    });
-  }
+          this.unsetCurrent( response.user );
+        callback(err, response);
+      }
+    }
+  })
+}
 }
