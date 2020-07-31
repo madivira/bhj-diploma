@@ -20,7 +20,6 @@ class TransactionsPage {
     } catch(e){
       console.log(e);
     }
-
   }
 
   /**

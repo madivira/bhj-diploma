@@ -1,6 +1,13 @@
 {
   "users": [
     {
+      "name": "demo",
+      "email": "demo@demo",
+      "password": "demo",
+      "id": "1",
+      "isAuthorized": true
+    },
+    {
       "id": "1hvibhadskd8nljnu",
       "isAuthorized": true
     },
@@ -30,6 +37,30 @@
     },
     {
       "id": "1hvibh59wkd8scq8e",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibhchwkd9y029d",
+      "isAuthorized": true
+    },
+    {
+      "name": "[object HTMLInputElement]",
+      "id": "1hvibh8w8kd9y3ib9",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh8bkkd9ynk3m",
+      "isAuthorized": true
+    },
+    {
+      "id": "1hvibh1vkkd9yzed5",
+      "isAuthorized": true
+    },
+    {
+      "name": "test",
+      "email": "test@test",
+      "password": "test",
+      "id": "1hvibh1m0kda161av",
       "isAuthorized": true
     }
   ],

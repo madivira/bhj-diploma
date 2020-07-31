@@ -57,7 +57,7 @@ class User {
       callback( err, response ) {
         if ( response && response.user ) {//если авторизован
           this.setCurrent( response.user );
-        callback(err, response);
+          callback(response);
       }
       }
     });
@@ -76,9 +76,10 @@ class User {
       url: this.URL + '/login',
       responseType: 'json',
       callback( err, response ) {
-        if ( response && response.user ) {
-          this.setCurrent( response.user );
-        callback(err, response);
+        console.log(response[user]);
+        if ( response && response[user] ) {
+          this.setCurrent( response[user] );
+          callback(response);
       }
       }
     })
@@ -99,7 +100,7 @@ class User {
       callback ( err, response ) {
         if ( response && response.user ) {
           this.setCurrent( response.user );
-         callback(err, response);
+          callback(response);
         }
       }
     })
@@ -117,8 +118,8 @@ class User {
       responseType: 'json',
       callback( err, response ) {
         if ( response && response.user ) {
-          this.unsetCurrent( response.user );
-        callback(err, response);
+          this.unsetCurrent();
+          callback(response);
       }
     }
   })

@@ -30,7 +30,7 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    let dismiss = document.querySelectorAll('button[data-dismiss="modal"]');
+    let dismiss = this.element.querySelectorAll('button[data-dismiss="modal"]');
      for (let modal of dismiss) {
       modal.onclick =()=> this.onClose();
       }

@@ -9,17 +9,9 @@ const createRequest = (options = {}) => {
     let urlGET = options.url + "?";
     console.log(options);
     for ( let form in options.data) {
-        for(let data in options.data[form]) {
-            formData.append(data,options.data[form][data]);
-            urlGET +=`${data}=${options.data[form][data]}&`;
-        }
-
-        /*console.log(form + " " + options.data[form]) ;
-        console.log(form);
-        console.log(options.data[form]);
-        console.log(options.data);
-        formData.append(options.data, options.data[form]);*/
-       // urlGET +=`${form}=${options.data[form]}&`;//url для GET запроса
+       
+        formData.append(form, options.data[form]);
+        urlGET +=`${form}=${options.data[form]}&`;//url для GET запроса
         console.log(urlGET);
     }
 
@@ -37,7 +29,6 @@ const createRequest = (options = {}) => {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                console.log(xhr.response)
                 options.callback(null, xhr.response);
             } else {
                 options.callback(xhr.status, null);
@@ -45,5 +36,7 @@ const createRequest = (options = {}) => {
         };
     };
 
-    options.method == 'GET' ? xhr.send() : xhr.send(formData);         
+    options.method == 'GET' ? xhr.send() : xhr.send(formData);      
+    
+    return xhr;   
 };

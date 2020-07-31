@@ -34,20 +34,18 @@ class Sidebar {
    * */
   static initAuthLinks() { 
     document.querySelector('li.menu-item_register a').onclick = () => {
-      const reg = new Modal(App.getModal('register').element);
-      reg.open();
+      App.getModal('register').open();
       return false;
     };
     document.querySelector('li.menu-item_login a').onclick = () => {
-      const log = new Modal(App.getModal('login').element);
-      log.open();
+      App.getModal('login').open();
       return false;
     };
     document.querySelector('li.menu-item_logout a').onclick = () => {
-     User.logout(User.current(),(err, response) => {
-       if(response[success]) {
+     User.logout(User.current(),(response) => {
+       
         App.setState( 'init' );
-       }
+       
      })
     };
   }

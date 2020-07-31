@@ -17,19 +17,17 @@ class LoginForm extends AsyncForm{
 
   onSubmit( options ) {
     console.log('loginForm');
+    console.log(options);
 
-    User.login(options, (err, response) => {
-      console.log(response);
-      if (response[success]) {
+    User.login(options, (response) => {
+      
+        App.getModal( 'login' ).element.reset();//При успешной регистрации сбрасывает формe
+        
 
-        this.element.reset();//При успешной регистрации сбрасывает формe
+        App.getModal( 'login' ).close();
         
         App.setState('user-logged');
-
-        let log = new Modal(App.getModal( 'login' ));
-        log.close();
         
-      }
     });
   }
 }
