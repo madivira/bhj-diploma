@@ -9,27 +9,27 @@
     },
     {
       "id": "1hvibhadskd8nljnu",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibh8zckd8oz957",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibh7t8kd8p2jqb",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibh3p0kd8rh62z",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibh6rckd8rryn1",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibh84okd8rsnrk",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibhbzskd8s65w0",
@@ -50,17 +50,6 @@
     },
     {
       "id": "1hvibh8bkkd9ynk3m",
-      "isAuthorized": true
-    },
-    {
-      "id": "1hvibh1vkkd9yzed5",
-      "isAuthorized": true
-    },
-    {
-      "name": "test",
-      "email": "test@test",
-      "password": "test",
-      "id": "1hvibh1m0kda161av",
       "isAuthorized": true
     }
   ],

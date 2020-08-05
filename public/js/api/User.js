@@ -49,14 +49,14 @@ class User {
    * */
   static fetch( data, callback = f => f) {
 
-    const xhr = createRequest({
+    return createRequest({
       method: 'GET',
       url: this.URL + '/current',
       responseType: 'json',
       data: data,
       callback( err, response ) {
         if ( response && response.user ) {//если авторизован
-          this.setCurrent( response.user );
+          User.setCurrent( response.user );
           callback(response);
       }
       }
@@ -70,15 +70,14 @@ class User {
    * User.setCurrent.
    * */
   static login( data, callback = f => f) {
-    let xhr = createRequest({
+    return createRequest({
       data: data, 
       method:'POST',
       url: this.URL + '/login',
       responseType: 'json',
       callback( err, response ) {
-        console.log(response[user]);
-        if ( response && response[user] ) {
-          this.setCurrent( response[user] );
+        if ( response.success && response.user ) {
+          User.setCurrent( response.user );
           callback(response);
       }
       }
@@ -92,14 +91,14 @@ class User {
    * User.setCurrent.
    * */
   static register( data, callback = f => f) {
-    let xhr = createRequest({
+    return createRequest({
       data: data, 
       method:'POST',
       url: this.URL + '/register',
       responseType: 'json',
       callback ( err, response ) {
-        if ( response && response.user ) {
-          this.setCurrent( response.user );
+        if ( response.success && response.user ) {
+          User.setCurrent( response.user );
           callback(response);
         }
       }
@@ -111,14 +110,14 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout( data, callback = f => f) {
-    let xhr = createRequest({
+    return createRequest({
       data: data, 
       method:'POST',
       url: this.URL + '/logout',
       responseType: 'json',
       callback( err, response ) {
-        if ( response && response.user ) {
-          this.unsetCurrent();
+        if ( response.success && response.user ) {
+          User.unsetCurrent();
           callback(response);
       }
     }

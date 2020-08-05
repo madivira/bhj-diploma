@@ -10,7 +10,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static list( data, callback = f => f) {
-    let xhr = createRequest({
+    return createRequest({
       data: data, 
       method:'GET',
       url: this.URL,
@@ -26,7 +26,7 @@ class Entity {
    * */
   static create( data, callback = f => f ) {
     const newData = Object.assign({ _method: 'PUT' }, data);
-    let xhr = createRequest({
+    return createRequest({
       data: newData, 
       method:'POST',
       url: this.URL,
@@ -40,8 +40,8 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static get( id = '', data, callback = f => f ) {//не понимаю куда пихать айди???
-    data.id = id;
-    let xhr = createRequest({
+    
+    return createRequest({
       data: data, 
       method:'GET',
       url: this.URL,
@@ -56,8 +56,8 @@ class Entity {
    * */
   static remove( id = '', data, callback = f => f ) {
     const newData = Object.assign({ _method: 'DELETE'}, data);
-    newData.id = id;
-    let xhr = createRequest({
+    
+    return createRequest({
       data: newData, 
       method:'POST',
       url: this.URL,

@@ -33,15 +33,11 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    document.querySelector('span.create-account').onclick = () => {
-      const newAccount = new Modal(App.getModal('createAccount').element);
-      newAccount.open();
+    this.element.querySelector('span.create-account').onclick = () => {
+      App.getModal('createAccount').open();
     } 
 
-    let sidebarAccount = document.querySelectorAll('ul.sidebar-menu account');
-    sidebarAccount.forEach(element => {
-      element.addEventListener('click', this.onSelectAccount(element));
-    })
+    this.element.addEventListener( 'click', e => this.onSelectAccount(e.target.closest( '.account' )));
   }
 
   /**
@@ -85,14 +81,15 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    element.classList.add('active');
-    let accounts = document.querySelector('.main-sidebar').querySelectorAll('.account');
-    for(let acc of accounts) {
-      if(acc.classList.contains('active')) {
-        acc.classList.toggle('active');
-      }
+       
+    const active = document.querySelector( '.active' );
+    if ( active ) {
+      active.classList.remove( 'active' );
     }
-    App.showPage( 'transactions', { account_id: id_счёта });
+    element.classList.add( 'active' );
+    App.showPage( 'transactions', { account_id: element.dataset.id });
+    
+    
   }
 
   /**
@@ -101,10 +98,10 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML( item ) {
-    return `<li class="active account" data-id="${item[id]}">
+    return `<li class="account" data-id="${item.id}">
       <a href="#">
-        <span>${item[name]}</span> /
-        <span>${item[sum]}</span>
+        <span>${item.name}</span> /
+        <span>${item.sum}</span>
       </a>
     </li>`
   }
@@ -116,8 +113,8 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem( item ) {
-    item.forEach(element => {
-      this.element.innerHTML = this.getAccountHTML(element);
-    })
+    for( let el of item.data) {
+      this.element.insertAdjacentHTML('afterbegin',this.getAccountHTML(el));
+    };
   }
 }

@@ -42,12 +42,10 @@ class Sidebar {
       return false;
     };
     document.querySelector('li.menu-item_logout a').onclick = () => {
-     User.logout(User.current(),(response) => {
-       
-        App.setState( 'init' );
-       
-     })
-    };
+      
+     if(User.logout()){
+      App.setState( 'init' );
+     }
   }
-
+}
 }
