@@ -5,7 +5,7 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibhadskd8nljnu",
@@ -33,7 +33,7 @@
     },
     {
       "id": "1hvibhbzskd8s65w0",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "1hvibh59wkd8scq8e",
@@ -50,6 +50,13 @@
     },
     {
       "id": "1hvibh8bkkd9ynk3m",
+      "isAuthorized": true
+    },
+    {
+      "name": "time",
+      "email": "time@time",
+      "password": "time",
+      "id": "1hvibh54kdhhjx8y",
       "isAuthorized": true
     }
   ],

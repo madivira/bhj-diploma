@@ -152,7 +152,7 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML( item ) {
-    console.log(item);
+    
     return `<div class="transaction transaction_${ item.type.toLowerCase() } row">
               <div class="col-md-7 transaction__details">
                 <div class="transaction__icon">
