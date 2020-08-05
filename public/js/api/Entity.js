@@ -39,7 +39,7 @@ class Entity {
    * Получает информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static get( id = '', data, callback = f => f ) {//не понимаю куда пихать айди???
+  static get( id = '', data, callback = f => f ) {
     
     return createRequest({
       data: data, 

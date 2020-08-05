@@ -92,7 +92,7 @@ class TransactionsPage {
    * */
   render( options ) {
     if(options) {
-      this.lastOptions = options;//Для работы метода update следует сохранить options в свойство lastOptions.
+      this.lastOptions = options;
       Account.get(options.account_id, null, (err, response) => {
         
         for(let i = 0; i < response.data.length; i++) {
@@ -152,7 +152,8 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML( item ) {
-    return `<div class="transaction transaction_${ item.type } row">
+    console.log(item);
+    return `<div class="transaction transaction_${ item.type.toLowerCase() } row">
               <div class="col-md-7 transaction__details">
                 <div class="transaction__icon">
                     <span class="fa fa-money fa-2x"></span>

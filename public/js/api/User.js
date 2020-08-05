@@ -55,7 +55,7 @@ class User {
       responseType: 'json',
       data: data,
       callback( err, response ) {
-        if ( response && response.user ) {//если авторизован
+        if ( response && response.user ) {
           User.setCurrent( response.user );
           callback(response);
       }
